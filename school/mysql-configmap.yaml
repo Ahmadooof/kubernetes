@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+data: 
+  mysql-host: mysql-service
+
+
+# this is used by expressjs to make connection to mysql service
+
+# kubectl apply -f mysql-configmap.yaml
