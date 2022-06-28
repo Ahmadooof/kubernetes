@@ -64,24 +64,24 @@ spec:
   
 ---
 
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: react
-#   namespace: default
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - host: mywebsite.com
-#     http:
-#       paths:
-#       - backend:
-#           service:
-#             name: react
-#             port:
-#               number: 7777
-#         path: /
-#         pathType: Prefix
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: react
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: techwithahmad.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: react
+            port:
+              number: 7777
+        path: /
+        pathType: Prefix
 
 ---
 
@@ -95,7 +95,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: dashboard.whatever
+  - host: techwithahmad.com
     http:
       paths:
       - backend:
@@ -103,7 +103,7 @@ spec:
             name: kubernetes-dashboard
             port:
               number: 443
-        path: /
+        path: /k
         pathType: Prefix
 
 ---
