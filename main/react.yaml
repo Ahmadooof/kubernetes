@@ -71,6 +71,10 @@ metadata:
   namespace: default
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - example.example.com
+    secretName: quickstart-example-tls
   rules:
   - host: techwithahmad.com
     http:
