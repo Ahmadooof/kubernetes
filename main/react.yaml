@@ -63,28 +63,7 @@ spec:
   type: ClusterIP       # ClusterIP, LoadBalancer, NodePort
   
 ---
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: react
-  namespace: default
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: techwithahmad.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: react
-            port:
-              number: 7777
-        path: /
-        pathType: Prefix
-
----
-
+# without TLs
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata:
@@ -92,10 +71,6 @@ spec:
 #   namespace: default
 # spec:
 #   ingressClassName: nginx
-#   tls:
-#   - hosts:
-#     - techwithahmad.com
-#     secretName: quickstart-example-tls
 #   rules:
 #   - host: techwithahmad.com
 #     http:
@@ -107,6 +82,34 @@ spec:
 #               number: 7777
 #         path: /
 #         pathType: Prefix
+
+---
+# with TLS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: react
+  namespace: default
+  annotations:
+  # kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - techwithahmad.com
+    secretName: quickstart-example-tls
+  rules:
+  - host: techwithahmad.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: react
+            port:
+              number: 7777
+        path: /
+        pathType: Prefix
 
 ---
 
