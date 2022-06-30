@@ -3,8 +3,11 @@ cert-manager is a powerful and extensible X.509 certificate controller for Kuber
 
 ### for installation:
 https://cert-manager.io/docs/installation/#default-static-install
-OR use
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.2/cert-manager.yaml
 
+OR use:
+```
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.2/cert-manager.yaml
+```
 ### for configration:
+Follow the docs for adding TLS.
 https://cert-manager.io/docs/tutorials/acme/nginx-ingress/#issuers
