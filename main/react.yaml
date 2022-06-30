@@ -71,10 +71,6 @@ metadata:
   namespace: default
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - example.example.com
-    secretName: quickstart-example-tls
   rules:
   - host: techwithahmad.com
     http:
@@ -89,26 +85,51 @@ spec:
 
 ---
 
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: dashboard
-  namespace: kubernetes-dashboard
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: techwithahmad.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: kubernetes-dashboard
-            port:
-              number: 443
-        path: /k
-        pathType: Prefix
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: react
+#   namespace: default
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - techwithahmad.com
+#     secretName: quickstart-example-tls
+#   rules:
+#   - host: techwithahmad.com
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: react
+#             port:
+#               number: 7777
+#         path: /
+#         pathType: Prefix
+
+---
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: dashboard
+#   namespace: kubernetes-dashboard
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: techwithahmad.com
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: kubernetes-dashboard
+#             port:
+#               number: 443
+#         path: /k
+#         pathType: Prefix
 
 ---
 
