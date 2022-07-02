@@ -11,3 +11,15 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 ### for configration:
 Follow the docs for adding TLS.
 https://cert-manager.io/docs/tutorials/acme/nginx-ingress/#issuers
+
+
+
+### Note:
+kind: ClusterIssuer, this make the issuer to the entire cluster, so if we have pods/services/ingress on another namespace like kuberntes dashboard
+then we can apply to the ingress:
+```
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+```
+
+This will make any pod works with TLS.

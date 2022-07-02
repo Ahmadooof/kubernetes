@@ -91,8 +91,7 @@ metadata:
   name: react
   namespace: default
   annotations:
-  # kubernetes.io/ingress.class: "nginx"    
-    cert-manager.io/issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   tls:
@@ -113,53 +112,3 @@ spec:
 
 ---
 
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: dashboard
-#   namespace: kubernetes-dashboard
-#   annotations:
-#     nginx.ingress.kubernetes.io/rewrite-target: /
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#   - host: techwithahmad.com
-#     http:
-#       paths:
-#       - backend:
-#           service:
-#             name: kubernetes-dashboard
-#             port:
-#               number: 443
-#         path: /k
-#         pathType: Prefix
-
----
-
-# # react
-
-
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: tls-example-ingress
-# spec:
-#   tls:
-#   - hosts:
-#       - https-example.foo.com
-#     secretName: testsecret-tls
-#   rules:
-#   - host: https-example.foo.com
-#     http:
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: service1
-#             port:
-#               number: 80
-
-              
-              
