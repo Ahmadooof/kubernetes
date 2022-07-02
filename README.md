@@ -6,4 +6,8 @@
     <li>
         Using nginx ingress controller on NodePort (No LoadBalancer)
     </li>
+    <li>
+        To install kubeadm on bare-metal server: https://github.com/Ahmadooof/bash/tree/master/install_Kubeadm
+    </li>
 </ul>
+
