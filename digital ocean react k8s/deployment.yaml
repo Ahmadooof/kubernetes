@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+      - image: ahmadooof/react:0.1.1
+        name: react
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: reactsvc
+  name: reactsvc
+  namespace: default
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 7777           # optional service port
+    protocol: TCP
+    targetPort: 80      # port of the pod
+  selector:
+    app: react
+  type: ClusterIP       # ClusterIP, LoadBalancer, NodePort

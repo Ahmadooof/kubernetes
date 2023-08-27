@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wireguard-pod
+  labels:
+    app: wireguard-pod
+spec:
+  containers:
+  - name: ubuntu
+    image: linuxserver/wireguard
+    command: ["bash", "-c", "sleep infinity"]
+    securityContext:
+      privileged: true
+    ports:
+    - containerPort: 51820
+      protocol: UDP
+
+
+
+
+#kubectl apply -f wgpod.yaml
+
+# copy file to container
+#kubectl cp ./vpnSetup.sh default/wireguard-pod:/home/
+
+# access the container
+#kubectl exec -it wireguard-pod -- /bin/sh
+#chmod +777 ./vpnSetup.sh
+#wg-quick up wg0
