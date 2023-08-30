@@ -1,0 +1,58 @@
+# kubectl apply -f express.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-deployment             # change to what ever you want
+  labels:
+    app: express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express
+  template:
+    metadata:
+      labels:
+        app: express
+    spec:
+      containers:
+      - name: express-pod
+        image: ahmadooof/expressjs
+        ports:
+        - containerPort: 4000
+          name: express
+          
+        env:
+        - name: USERNAME
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: username     
+        - name: PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        - name: HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: mysql-configmap
+              key: mysql-host
+                                   
+---
+
+# when we apply loadbalancer service we run this command: minikube service nameOfService <==> minikube service react-service or minikube tunnel
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-service                # change to what ever you want
+spec:
+  selector:
+    app: express              # this should be same as deployment label and pod label
+  type: ClusterIP             # ClusterIP, LoadBalancer, NodePort
+  ports:
+    - protocol: TCP
+      port: 4001
+      targetPort: 4000        # port of the pod
+      # nodePort: 32222        # when loadbalancer is enabled this will be the port in link to access externally
+---

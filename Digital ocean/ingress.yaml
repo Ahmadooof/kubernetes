@@ -7,9 +7,10 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   tls:
-  - hosts:
-    - ahmadhome.com
-    secretName: echo-tls
+    - hosts:
+        - ahmadhome.com
+        - desktop.ahmadhome.com
+      secretName: echo-tls
   rules:
   - host: ahmadhome.com
     http:
@@ -20,4 +21,14 @@ spec:
             service:
               name: reactsvc
               port:
-                number: 80
+                number: 7777
+  - host: "desktop.ahmadhome.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: web-desktop-svc
+            port:
+              number: 6666

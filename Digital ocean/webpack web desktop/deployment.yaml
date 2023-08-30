@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webdesktop
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webdesktop
+  template:
+    metadata:
+      labels:
+        app: webdesktop
+    spec:
+      containers:
+      - image: ahmadooof/web-desktop:1.1
+        name: webdesktop
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web-desktop-svc
+  name: web-desktop-svc
+  namespace: default
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 6666           # optional service port
+    protocol: TCP
+    targetPort: 80      # port of the pod
+  selector:
+    app: webdesktop
+  type: ClusterIP       # ClusterIP, LoadBalancer, NodePort
