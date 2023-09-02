@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   name: mysql-configmap
 data: 
-  mysql-host: mysql-service
+  host: mysql-service
+  database: school
 
 
 # this is used by expressjs to make connection to mysql service
 
-# kubectl apply -f mysql-configmap.yaml
+# kubectl apply -f mysql-con.yaml

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: express-pod
-        image: ahmadooof/expressjs:1.1
+        image: ahmadooof/expressjs:1.2
         ports:
         - containerPort: 4000
           name: express
@@ -37,7 +37,12 @@ spec:
           valueFrom: 
             configMapKeyRef:
               name: mysql-configmap
-              key: mysql-host
+              key: host
+        - name: DATABASE
+          valueFrom: 
+            configMapKeyRef:
+              name: mysql-configmap
+              key: database              
                                    
 ---
 

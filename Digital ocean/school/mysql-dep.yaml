@@ -1,4 +1,4 @@
-# kubectl apply -f mysqldep.yaml
+# kubectl apply -f mysql-dep.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,7 +28,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: ahmadooof/mysql:1.0
+      - image: mysql:8.0.34-debian
         name: mysql
         ports:
         - containerPort: 3306
@@ -45,42 +45,14 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: password
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: password              
+        - name: MYSQL_DATABASE
+          valueFrom: 
+            configMapKeyRef:
+              name: mysql-configmap
+              key: database
 ---
-
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: mysql-pv-volume
-#   labels:
-#     type: local
-# spec:
-#   storageClassName: manual
-#   capacity:
-#     storage: 5Gi
-#   accessModes:
-#     - ReadWriteOnce
-#   hostPath:
-#     path: "/mnt/data"
----
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: mysql-pv-claim
-# spec:
-#   storageClassName: manual
-#   accessModes:
-#     - ReadWriteOnce
-#   resources:
-#     requests:
-#       storage: 5Gi
-
----
-      #   volumeMounts:
-      #   - name: mysql-persistent-storage
-      #     mountPath: /var/lib/mysql
-      # volumes:
-      # - name: mysql-persistent-storage
-      #   persistentVolumeClaim:
-      #     claimName: mysql-pv-claim
-
-
