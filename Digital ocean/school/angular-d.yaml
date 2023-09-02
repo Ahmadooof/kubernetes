@@ -1,0 +1,41 @@
+# kubectl apply -f angular-d.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular
+  labels:
+    app: angular
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular
+  template:
+    metadata:
+      labels:
+        app: angular
+    spec:
+      containers:
+      - name: angular-pod
+        image: ahmadooof/school-frontend-angular:1.2
+        ports:
+        - containerPort: 80
+          name: angular
+
+---
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-school             # change to what ever you want
+spec:
+  selector:
+    app: angular              # this should be same as deployment label and pod label
+  type: ClusterIP             # ClusterIP, LoadBalancer, NodePort
+  ports:
+    - protocol: TCP
+      port: 4002
+      targetPort: 80        # port of the pod
+      # nodePort: 32222        # when loadbalancer is enabled this will be the port in link to access externally
+---
