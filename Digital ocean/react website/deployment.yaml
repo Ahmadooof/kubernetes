@@ -17,12 +17,11 @@ spec:
       containers:
       - image: ahmadooof/react:latest
         name: react
-        imagePullPolicy: Always
-      imagePullSecrets:
-      - name: dockerhub-secret  # Reference the secret you created
         ports:
         - containerPort: 80
-
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: dockerhub-secret
 ---
 
 apiVersion: v1
