@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: express-deployment             # change to what ever you want
+  name: express-deployment
   labels:
     app: express
 spec:
@@ -36,12 +36,12 @@ spec:
         - name: HOST
           valueFrom: 
             configMapKeyRef:
-              name: mysql-configmap
+              name: mysql-confingmap-school
               key: host
         - name: DATABASE
           valueFrom: 
             configMapKeyRef:
-              name: mysql-configmap
+              name: mysql-confingmap-school
               key: database              
                                    
 ---
