@@ -1,17 +1,3 @@
-# kubectl apply -f mysql-dep.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-service
-spec:
-  ports:
-  - port: 3306
-  selector:
-    app: mysql
-  type: ClusterIP       # ClusterIP, LoadBalancer, NodePort
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,31 +14,33 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:8.0.34-debian
+      - image: ahmadooof/mysql:1.0.8
         name: mysql
         ports:
         - containerPort: 3306
           name: mysql
-        # Add secret
-        env:
-        - name: MYSQL_USER
-          valueFrom: 
-            secretKeyRef:
-              name: mysql-secret
-              key: username     
-        - name: MYSQL_PASSWORD
-          valueFrom: 
-            secretKeyRef:
-              name: mysql-secret
-              key: password
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom: 
-            secretKeyRef:
-              name: mysql-secret
-              key: password              
-        - name: MYSQL_DATABASE
-          valueFrom: 
-            configMapKeyRef:
-              name: mysql-configmap
-              key: database
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-chat-host
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  type: NodePort
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-school-host
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  type: NodePort

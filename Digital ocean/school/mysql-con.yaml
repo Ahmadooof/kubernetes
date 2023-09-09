@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-confingmap-school
-data: 
-  host: mysql-service
-  database: school

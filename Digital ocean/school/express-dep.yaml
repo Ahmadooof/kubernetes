@@ -1,4 +1,4 @@
-# kubectl apply -f express-d.yaml
+# kubectl apply -f express-dep.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,13 +36,13 @@ spec:
         - name: HOST
           valueFrom: 
             configMapKeyRef:
-              name: mysql-confingmap-school
-              key: host
+              name: app2-configmap
+              key: HOST
         - name: DATABASE
           valueFrom: 
             configMapKeyRef:
-              name: mysql-confingmap-school
-              key: database              
+              name: app2-configmap
+              key: DATABASE              
                                    
 ---
 

@@ -1,4 +1,4 @@
-# kubectl apply -f .\deployment.yaml
+# kubectl apply -f react-dep.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:

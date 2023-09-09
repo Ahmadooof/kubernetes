@@ -10,6 +10,7 @@ spec:
   tls:
     - hosts:
         - ahmadhome.com
+        - backend.ahmadhome.com
         - desktop.ahmadhome.com
         - school-backend.ahmadhome.com
         - school.ahmadhome.com
@@ -55,5 +56,15 @@ spec:
           service:
             name: angular-school
             port:
-              number: 4002              
+              number: 4002
+  - host: "backend.ahmadhome.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-service
+            port:
+              number: 4001                
               

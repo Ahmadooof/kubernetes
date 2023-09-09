@@ -1,0 +1,61 @@
+# kubectl apply -f nodejs-dep.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    app: nodejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs-pod
+        image: ahmadooof/mywebsite-nodejs:1.1.4
+        ports:
+        - containerPort: 4000
+          name: nodejs
+          
+        env:
+        - name: USERNAME
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: username     
+        - name: PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        - name: HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: app1-configmap
+              key: HOST
+        - name: DATABASE
+          valueFrom: 
+            configMapKeyRef:
+              name: app1-configmap
+              key: DATABASE          
+---
+
+# when we apply loadbalancer service we run this command: minikube service nameOfService <==> minikube service react-service or minikube tunnel
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-service                # change to what ever you want
+spec:
+  selector:
+    app: nodejs              # this should be same as deployment label and pod label
+  type: ClusterIP             # ClusterIP, LoadBalancer, NodePort
+  ports:
+    - protocol: TCP
+      port: 4001
+      targetPort: 4000        # port of the pod
+---

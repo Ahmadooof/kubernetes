@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app1-configmap
+data:
+  HOST: mysql-chat-host
+  DATABASE: chat
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app2-configmap
+data:
+  HOST: mysql-school-host
+  DATABASE: school
+
+# ---
+
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: mysql-configmap-scripts
+# data:
+#   schema1.sql: |
+#     CREATE DATABASE school;
+
+#   schema2.sql: |
+#     CREATE DATABASE mywebsite;
