@@ -19,6 +19,12 @@ spec:
         name: react
         ports:
         - containerPort: 80
+        env:
+        - name: REACT_APP_OPENAI_API_KEY
+          valueFrom: 
+            secretKeyRef:
+              name: openai-secret
+              key: REACT_APP_OPENAI_API_KEY
         imagePullPolicy: Always
       imagePullSecrets:
       - name: dockerhub-secret

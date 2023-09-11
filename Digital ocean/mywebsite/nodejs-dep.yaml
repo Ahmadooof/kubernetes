@@ -17,12 +17,16 @@ spec:
     spec:
       containers:
       - name: nodejs-pod
-        image: ahmadooof/mywebsite-nodejs:1.1.4
+        image: ahmadooof/mywebsite-nodejs:3.0.0
         ports:
         - containerPort: 4000
           name: nodejs
-          
         env:
+        - name: REACT_APP_OPENAI_API_KEY
+          valueFrom: 
+            secretKeyRef:
+              name: openai-secret
+              key: REACT_APP_OPENAI_API_KEY        
         - name: USERNAME
           valueFrom: 
             secretKeyRef:
