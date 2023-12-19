@@ -105,7 +105,7 @@ Address = $ip/24
 [Peer]
 PublicKey = $( cat /etc/wireguard/publickey)
 AllowedIPs = 0.0.0.0/0
-Endpoint = $(curl -s ifconfig.me):30000
+Endpoint = $(curl -s ifconfig.me):51820
 
 EOF
 
